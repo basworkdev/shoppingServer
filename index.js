@@ -20,7 +20,8 @@ destination: function (req, file, cb) {
     cb(null, 'images/')
 },
 filename: function (req, file, cb) {
-    cb(null, Date.now() + ".png")
+    let fileName = file.originalname.split(".");
+    cb(null, fileName[0] + "_" + Date.now() + ".png")
 }
 })
 const upload = multer({ storage: storage }) 
@@ -46,6 +47,11 @@ app.get('/getBrand', productRouter.getBrand);
 app.get('/getProductType', productRouter.getProductType);
 app.get('/getConfig/:name', productRouter.getConfig);
 app.post('/createProduct', productRouter.CreactProduct);
+app.post('/updateProduct', productRouter.UpdateProduct);
+app.post('/deleteProduct', productRouter.DeleteProduct);
+app.get('/getProductById/:id', productRouter.getProductById);
+app.get('/getProductByKey/:key', productRouter.getProductByKey);
+app.post('/deleteImage/:name', productRouter.deleteImage);
 
 app.listen('3001',()=>{
     console.log('Server is running on port 3001')
