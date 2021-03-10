@@ -268,7 +268,10 @@ exports.getProductByType = (req,res)=>{
 }
 
 exports.getProductAllByType = (req,res)=>{
-    const type = req.params.type;
+    let type = req.params.type;
+    if(type === "all") {
+        type = "";
+    }
     db.query(`SELECT 
         pr.id AS id , 
         pr.name AS name , 
@@ -292,7 +295,7 @@ exports.getProductAllByType = (req,res)=>{
         FROM products AS pr 
         INNER JOIN brand AS pb ON pr.brand = pb.id 
         INNER JOIN product_type AS pt ON pr.type = pt.id 
-        WHERE pr.type = '${type}'`,(err,result)=>{
+        WHERE pr.type LIKE '%${type}%'`,(err,result)=>{
         if(err) {
             console.log(err);
         }else {
