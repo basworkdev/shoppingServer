@@ -21,7 +21,7 @@ exports.getBrand = (req,res)=>{
 }
 
 exports.getProductType = (req,res)=>{
-    db.query("SELECT * FROM product_type",(err,result)=>{
+    db.query("SELECT * FROM product_type ORDER BY type_order",(err,result)=>{
         if(err) {
             console.log(err);
         }else {
@@ -219,11 +219,80 @@ exports.getProductByKey = (req,res)=>{
         pb.name AS brandName_th, 
         pb.id AS brandId,
         pt.name_th AS typeName,
-        pt.id AS typeId
+        pt.id AS typeId,
+        pt.detail AS typeDetail
         FROM products AS pr 
         INNER JOIN brand AS pb ON pr.brand = pb.id 
         INNER JOIN product_type AS pt ON pr.type = pt.id 
         WHERE pr.productKey = '${key}'`,(err,result)=>{
+        if(err) {
+            console.log(err);
+        }else {
+            res.send(result);
+        }
+    })
+}
+
+exports.getProductByType = (req,res)=>{
+    const type = req.params.type;
+    db.query(`SELECT 
+        pr.id AS id , 
+        pr.name AS name , 
+        pr.price AS price , 
+        pr.fullPrice AS fullPrice , 
+        pr.productKey AS productKey, 
+        pr.stock AS stock, 
+        pr.mainImg AS mainImg,
+        pr.img AS img, 
+        pr.status AS status, 
+        pr.mainDetail AS mainDetail,
+        pr.detail AS detail,
+        pr.subDetail AS subDetail,
+        pr.color AS color,
+        pb.name AS brandName_th, 
+        pb.id AS brandId,
+        pt.name_th AS typeName,
+        pt.id AS typeId,
+        pt.detail AS typeDetail
+
+        FROM products AS pr 
+        INNER JOIN brand AS pb ON pr.brand = pb.id 
+        INNER JOIN product_type AS pt ON pr.type = pt.id 
+        WHERE pr.type = '${type}' LIMIT 8`,(err,result)=>{
+        if(err) {
+            console.log(err);
+        }else {
+            res.send(result);
+        }
+    })
+}
+
+exports.getProductAllByType = (req,res)=>{
+    const type = req.params.type;
+    db.query(`SELECT 
+        pr.id AS id , 
+        pr.name AS name , 
+        pr.price AS price , 
+        pr.fullPrice AS fullPrice , 
+        pr.productKey AS productKey, 
+        pr.stock AS stock, 
+        pr.mainImg AS mainImg,
+        pr.img AS img, 
+        pr.status AS status, 
+        pr.mainDetail AS mainDetail,
+        pr.detail AS detail,
+        pr.subDetail AS subDetail,
+        pr.color AS color,
+        pb.name AS brandName_th, 
+        pb.id AS brandId,
+        pt.name_th AS typeName,
+        pt.id AS typeId,
+        pt.detail AS typeDetail
+
+        FROM products AS pr 
+        INNER JOIN brand AS pb ON pr.brand = pb.id 
+        INNER JOIN product_type AS pt ON pr.type = pt.id 
+        WHERE pr.type = '${type}'`,(err,result)=>{
         if(err) {
             console.log(err);
         }else {

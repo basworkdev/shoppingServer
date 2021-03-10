@@ -42,15 +42,20 @@ app.get('/user99', mainRouter.user99);
 app.post('/login', mainRouter.login);
 
 // Products
+// GET
 app.get('/getAllProduct' , productRouter.getAllProduct);
 app.get('/getBrand', productRouter.getBrand);
 app.get('/getProductType', productRouter.getProductType);
 app.get('/getConfig/:name', productRouter.getConfig);
+app.get('/getProductById/:id', productRouter.getProductById);
+app.get('/getProductByKey/:key', productRouter.getProductByKey);
+app.get('/getProductByType/:type', productRouter.getProductByType);
+app.get('/getProductAllByType/:type', productRouter.getProductAllByType);
+
+// POST
 app.post('/createProduct', productRouter.CreactProduct);
 app.post('/updateProduct', productRouter.UpdateProduct);
 app.post('/deleteProduct', productRouter.DeleteProduct);
-app.get('/getProductById/:id', productRouter.getProductById);
-app.get('/getProductByKey/:key', productRouter.getProductByKey);
 app.post('/deleteImage/:name', productRouter.deleteImage);
 
 app.listen('3001',()=>{
