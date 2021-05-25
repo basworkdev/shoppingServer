@@ -9,6 +9,7 @@ const path = require("path")
 const db = require('./myconnect/myconnect')
 
 const productRouter = require('./router/productRouter')
+const addressRouter = require('./router/addressRouter')
 const mainRouter = require('./router/mainRouter')
 
 
@@ -57,6 +58,12 @@ app.post('/createProduct', productRouter.CreactProduct);
 app.post('/updateProduct', productRouter.UpdateProduct);
 app.post('/deleteProduct', productRouter.DeleteProduct);
 app.post('/deleteImage/:name', productRouter.deleteImage);
+
+// Address
+// GET
+app.get('/getProvinces', addressRouter.getProvinces);
+app.get('/getAmphures/:province_id', addressRouter.getAmphures);
+app.get('/getDistricts/:amphure_id', addressRouter.getDistricts);
 
 app.listen('3001',()=>{
     console.log('Server is running on port 3001')
