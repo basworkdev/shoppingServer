@@ -65,6 +65,10 @@ app.get('/getProvinces', addressRouter.getProvinces);
 app.get('/getAmphures/:province_id', addressRouter.getAmphures);
 app.get('/getDistricts/:amphure_id', addressRouter.getDistricts);
 
+
+// Font end
+app.post('saveOrder');
+
 app.listen('3001',()=>{
     console.log('Server is running on port 3001')
 })
