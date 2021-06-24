@@ -17,6 +17,7 @@ exports.saveOrder = (req,res) => {
         const customer_address = req.body.customer_address;
         const customer_province = req.body.customer_province;
         const customer_amphure = req.body.customer_amphure;
+        const customer_district = req.body.customer_district;
         const customer_postcode = req.body.customer_postcode;
         const order_time = req.body.order_time;
         const pay_status = req.body.pay_status;
@@ -24,6 +25,7 @@ exports.saveOrder = (req,res) => {
         const delivery_number = req.body.delivery_number;
         const delivery_company = req.body.delivery_company;
         const delivery_date = req.body.delivery_date;
+        const user_id = req.body.user_id;
         db.query(`INSERT INTO orders (
             id,
             amount,
@@ -38,11 +40,16 @@ exports.saveOrder = (req,res) => {
             customer_address,
             customer_province,
             customer_amphure,
+            customer_district,
             customer_postcode,
             order_time,
             pay_status,
-            status
-            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+            status,
+            delivery_number,
+            delivery_company,
+            delivery_date,
+            user_id
+            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
             [
                 id,
                 amount,
@@ -57,10 +64,15 @@ exports.saveOrder = (req,res) => {
                 customer_address,
                 customer_province,
                 customer_amphure,
+                customer_district,
                 customer_postcode,
-                date,
+                order_time,
                 pay_status,
-                status
+                status,
+                delivery_number,
+                delivery_company,
+                delivery_date,
+                user_id
             ],(err,result)=>{
                 if(err) {
                     console.log(err);

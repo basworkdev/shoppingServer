@@ -11,6 +11,7 @@ const db = require('./myconnect/myconnect')
 const productRouter = require('./router/productRouter')
 const addressRouter = require('./router/addressRouter')
 const mainRouter = require('./router/mainRouter')
+const shoppingRouter = require('./router/shoppingRouter')
 
 
 // Upload image
@@ -67,7 +68,7 @@ app.get('/getDistricts/:amphure_id', addressRouter.getDistricts);
 
 
 // Font end
-app.post('saveOrder');
+app.post('/saveOrder',shoppingRouter.saveOrder);
 
 app.listen('3001',()=>{
     console.log('Server is running on port 3001')
