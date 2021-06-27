@@ -376,4 +376,19 @@ exports.getProductAllByType = (req,res)=>{
     
 }
 
+exports.UpdateStock = (req,res)=>{
+    try {
+
+        db.query(`UPDATE products SET stock = '${req.stock}' WHERE products.id = '${req.id}'`,(err,result)=>{
+            if(err) {
+                console.log(err);
+            }else {
+                console.log(result);
+            }
+        })
+    } catch (error) {
+        console.log("error : " , error)
+    }
+    
+}
 

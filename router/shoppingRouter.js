@@ -1,8 +1,14 @@
 const db = require('../myconnect/myconnect')
 let moment = require('moment');
-exports.saveOrder = (req,res) => {
+const tc = require('../textConfig/textConfig.json')
+const OrderDao = require('../dao/OrderDao')
+const productRouter = require('./productRouter')
+
+
+// const orderDao = new OrderDao();
+exports.saveOrder = async (req,res) => {
     try {
-        console.log(req.body)
+        // console.log(req.body)
         let date = new Date();
         const id = moment(date).format('YYMMDDHHmmss');
         const amount = parseInt(req.body.amount);
@@ -26,6 +32,7 @@ exports.saveOrder = (req,res) => {
         const delivery_company = req.body.delivery_company;
         const delivery_date = req.body.delivery_date;
         const user_id = req.body.user_id;
+        let orderDetail = req.body.orderDetail;
         db.query(`INSERT INTO orders (
             id,
             amount,
@@ -73,18 +80,48 @@ exports.saveOrder = (req,res) => {
                 delivery_company,
                 delivery_date,
                 user_id
-            ],(err,result)=>{
+            ], async (err,result)=> {
                 if(err) {
                     console.log(err);
-                }else {
                     res.send({
-                        status : "success",
-                        message : "บันทึกสำเร็จ",
+                        status : "Error",
+                        message : tc.error.errorSystem,
                         code : 1
                     });
+                }else {
+                    let status = [];
+                    for(let i=0 ; i<orderDetail.length ; i++){
+                        let statusSave = await OrderDao.saveOrderDetail(orderDetail[i],id)
+                        let stock = {
+                            stock : orderDetail[i].stock - orderDetail[i].order,
+                            id : orderDetail[i].id
+                        }
+                        let updateStock = await productRouter.UpdateStock(stock);
+                        console.log("updateStock" , updateStock)
+                        console.log("statusSave",statusSave)
+                        if(statusSave === 1) {
+                            status.push(1)
+                        }
+                    }
+                    console.log("status",status)
+                    if(status.length === orderDetail.length) {
+                        res.send({
+                            status : "success",
+                            message : tc.success.orderSaveSuccess,
+                            code : 1
+                        });
+                    } else {
+                        res.send({
+                            status : "success",
+                            message : tc.success.errorSystem,
+                            code : 1
+                        });
+                    }
+                    
                 }
             })
     } catch (error) {
         console.log("error : " , error)
     }
 }
+
