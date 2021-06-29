@@ -10,7 +10,8 @@ exports.saveOrder = async (req,res) => {
     try {
         // console.log(req.body)
         let date = new Date();
-        const id = moment(date).format('YYMMDDHHmmss');
+        // const id = moment(date).format('YYMMDDHHmmss');
+        const id = req.body.id;
         const amount = parseInt(req.body.amount);
         const sum_full_price = parseFloat(req.body.sum_full_price);
         const sum_discount = parseFloat(req.body.sum_discount);
@@ -120,6 +121,22 @@ exports.saveOrder = async (req,res) => {
                     
                 }
             })
+    } catch (error) {
+        console.log("error : " , error)
+    }
+}
+
+exports.getOrderAndOrderDetail = async (req,res) => {
+    const orderId = req.params.orderId;
+    console.log(orderId)
+    try {
+        db.query(`SELECT * FROM orders AS rd INNER JOIN order_detail AS rdd ON rd.id = rdd.order_id WHERE rd.id = '${orderId}'`,(err,result)=>{
+            if(err) {
+                console.log(err);
+            }else {
+                res.send(result);
+            }
+        })
     } catch (error) {
         console.log("error : " , error)
     }

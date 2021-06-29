@@ -11,7 +11,7 @@ const db = require('./myconnect/myconnect')
 const productRouter = require('./router/productRouter')
 const addressRouter = require('./router/addressRouter')
 const mainRouter = require('./router/mainRouter')
-const shoppingRouter = require('./router/shoppingRouter')
+const orderRouter = require('./router/orderRouter')
 
 
 // Upload image
@@ -68,7 +68,8 @@ app.get('/getDistricts/:amphure_id', addressRouter.getDistricts);
 
 
 // Font end
-app.post('/saveOrder',shoppingRouter.saveOrder);
+app.post('/saveOrder',orderRouter.saveOrder);
+app.get('/getOrderAndOrderDetail/:orderId',orderRouter.getOrderAndOrderDetail)
 // app.post('/saveOrderDetail',shoppingRouter.saveOrderDetail)
 
 app.listen('3001',()=>{
