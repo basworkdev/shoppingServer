@@ -1,3 +1,4 @@
+let moment = require('moment');
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -34,6 +35,30 @@ app.post('/upload', upload.single('file'),  (req, res) => {
 
 res.send(req.file)
 })
+
+/////////////////////
+
+// Upload Folder
+const multerFolder = require('multer');
+
+const storageFolder = multerFolder.diskStorage({ 
+destination: function (req, file, cb) {
+    cb(null, 'imagesSlipPay/')
+},
+filename: function (req, file, cb) {
+    let fileName = file.originalname.split(".");
+    cb(null, moment(Date.now()).format('YYYYMMDD_hhmmss') + "_" + fileName[0] + ".png")
+}
+})
+const uploadFolder = multerFolder({ storage: storageFolder }) 
+    app.get('/', (req, res) => {
+    res.send('Hello Upload')
+})
+
+app.post('/uploadFolder', uploadFolder.single('file'),  (req, res) => { 
+    res.send(req.file)
+})
+/////////////////////
 
 
 // Get Images
