@@ -63,6 +63,7 @@ app.post('/uploadFolder', uploadFolder.single('file'),  (req, res) => {
 
 // Get Images
 app.use("/images", express.static(path.join(__dirname, "images")));
+app.use("/imagesSlipPay", express.static(path.join(__dirname, "imagesSlipPay")));
 
 // Login
 app.get('/user99', mainRouter.user99);
