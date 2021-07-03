@@ -142,3 +142,28 @@ exports.getOrderAndOrderDetail = async (req,res) => {
     }
 }
 
+
+exports.updateSlip = async (req,res) => {
+    const orderId = req.body.orderId;
+    const pay_status = req.body.pay_status;
+    const pay_date = req.body.pay_date;
+    const status = req.body.status;
+    const pay_image = req.body.pay_image;
+    try {
+        db.query(`UPDATE orders SET pay_status = '${pay_status}', pay_date = '${pay_date}', status = '${status}' , pay_image = '${pay_image}' WHERE id = '${orderId}'`,(err,result)=>{
+            if(err) {
+                console.log(err);
+            }else {
+                console.log(result);
+                res.send({
+                    status : "success",
+                    message : "บันทึกสำเร็จ",
+                    code : 1
+                });
+            }
+        })
+    } catch (error) {
+        console.log("error : " , error)
+    }
+}
+
