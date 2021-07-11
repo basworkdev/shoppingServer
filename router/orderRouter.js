@@ -142,6 +142,38 @@ exports.getOrderAndOrderDetail = async (req,res) => {
     }
 }
 
+exports.getOrderById = async (req,res) => {
+    const orderId = req.params.orderId;
+    console.log("orderId",orderId)
+    try {
+        db.query(`SELECT * FROM orders WHERE id = '${orderId}'`,(err,result)=>{
+            if(err) {
+                console.log(err);
+            }else {
+                res.send(result);
+            }
+        })
+    } catch (error) {
+        console.log("error : " , error)
+    }
+}
+
+exports.searchOrder = async (req,res) => {
+    const column = req.body.column;
+    const value = req.body.value;
+    try {
+        db.query(`SELECT * FROM orders AS rd INNER JOIN order_detail AS rdd ON rd.id = rdd.order_id WHERE rd.${column} = '${value}'`,(err,result)=>{
+            if(err) {
+                console.log(err);
+            }else {
+                res.send(result);
+            }
+        })
+    } catch (error) {
+        console.log("error : " , error)
+    }
+}
+
 
 exports.updateSlip = async (req,res) => {
     const orderId = req.body.orderId;
