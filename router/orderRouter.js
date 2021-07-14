@@ -162,7 +162,24 @@ exports.searchOrder = async (req,res) => {
     const column = req.body.column;
     const value = req.body.value;
     try {
-        db.query(`SELECT * FROM orders AS rd INNER JOIN order_detail AS rdd ON rd.id = rdd.order_id WHERE rd.${column} = '${value}'`,(err,result)=>{
+        // db.query(`SELECT * FROM orders AS rd INNER JOIN order_detail AS rdd ON rd.id = rdd.order_id WHERE rd.${column} = '${value}'`,(err,result)=>{
+        db.query(`SELECT * FROM orders WHERE ${column} = '${value}' ORDER BY order_time DESC`,(err,result)=>{
+            if(err) {
+                console.log(err);
+            }else {
+                res.send(result);
+            }
+        })
+    } catch (error) {
+        console.log("error : " , error)
+    }
+}
+exports.searchOrderDetailByOrderId = async (req,res) => {
+    const orderId = req.params.orderId;
+    console.log("order_id",orderId)
+    try {
+        // db.query(`SELECT * FROM orders AS rd INNER JOIN order_detail AS rdd ON rd.id = rdd.order_id WHERE rd.${column} = '${value}'`,(err,result)=>{
+        db.query(`SELECT * FROM order_detail WHERE order_id = '${orderId}'`,(err,result)=>{
             if(err) {
                 console.log(err);
             }else {

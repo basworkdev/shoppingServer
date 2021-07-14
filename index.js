@@ -99,6 +99,7 @@ app.get('/getOrderAndOrderDetail/:orderId',orderRouter.getOrderAndOrderDetail);
 app.post('/updateSlip',orderRouter.updateSlip);
 app.get('/getOrderById/:orderId',orderRouter.getOrderById);
 app.post('/searchOrder',orderRouter.searchOrder);
+app.get('/searchOrderDetailByOrderId/:orderId',orderRouter.searchOrderDetailByOrderId);
 
 
 app.listen('3001',()=>{
