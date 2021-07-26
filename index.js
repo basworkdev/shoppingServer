@@ -91,6 +91,7 @@ app.post('/deleteImage/:name', productRouter.deleteImage);
 app.get('/getProvinces', addressRouter.getProvinces);
 app.get('/getAmphures/:province_id', addressRouter.getAmphures);
 app.get('/getDistricts/:amphure_id', addressRouter.getDistricts);
+app.get('/getOrderAll' , orderRouter.getOrderAll)
 
 
 // Font end

@@ -126,6 +126,20 @@ exports.saveOrder = async (req,res) => {
     }
 }
 
+exports.getOrderAll = async (req,res) => {
+    try {
+        db.query(`SELECT * FROM orders ORDER BY order_time_update DESC , order_time DESC`,(err,result)=>{
+            if(err) {
+                console.log(err);
+            }else {
+                res.send(result);
+            }
+        })
+    } catch (error) {
+        console.log("error : " , error)
+    }
+}
+
 exports.getOrderAndOrderDetail = async (req,res) => {
     const orderId = req.params.orderId;
     console.log(orderId)
