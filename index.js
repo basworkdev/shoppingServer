@@ -85,6 +85,7 @@ app.post('/createProduct', productRouter.CreactProduct);
 app.post('/updateProduct', productRouter.UpdateProduct);
 app.post('/deleteProduct', productRouter.DeleteProduct);
 app.post('/deleteImage/:name', productRouter.deleteImage);
+app.post('/updateOrderDetail' , orderRouter.updateOrderDetail);
 
 // Address
 // GET

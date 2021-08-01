@@ -31,7 +31,6 @@ exports.saveOrder = async (req,res) => {
         const status = req.body.status;
         const delivery_number = req.body.delivery_number;
         const delivery_company = req.body.delivery_company;
-        const delivery_date = req.body.delivery_date;
         const user_id = req.body.user_id;
         let orderDetail = req.body.orderDetail;
         db.query(`INSERT INTO orders (
@@ -55,9 +54,8 @@ exports.saveOrder = async (req,res) => {
             status,
             delivery_number,
             delivery_company,
-            delivery_date,
             user_id
-            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
             [
                 id,
                 amount,
@@ -79,7 +77,6 @@ exports.saveOrder = async (req,res) => {
                 status,
                 delivery_number,
                 delivery_company,
-                delivery_date,
                 user_id
             ], async (err,result)=> {
                 if(err) {
@@ -214,6 +211,42 @@ exports.updateSlip = async (req,res) => {
     const pay_image = req.body.pay_image;
     try {
         db.query(`UPDATE orders SET pay_status = '${pay_status}', pay_date = '${pay_date}', status = '${status}' , pay_image = '${pay_image}' WHERE id = '${orderId}'`,(err,result)=>{
+            if(err) {
+                console.log(err);
+            }else {
+                console.log(result);
+                res.send({
+                    status : "success",
+                    message : "บันทึกสำเร็จ",
+                    code : 1
+                });
+            }
+        })
+    } catch (error) {
+        console.log("error : " , error)
+    }
+}
+
+exports.updateOrderDetail = async (req,res) => {
+    const orderId = req.body.orderId;
+    const delivery_company = req.body.delivery_company;
+    const delivery_number = req.body.delivery_number;
+    const delivery_trace = req.body.delivery_trace;
+    const delivery_date = req.body.delivery_date;
+    const pay_date = req.body.pay_date;
+    const pay_status = req.body.pay_status;
+    const status = req.body.status;
+    try {
+        db.query(`UPDATE orders SET
+            delivery_company = '${delivery_company}', 
+            delivery_number = '${delivery_number}', 
+            delivery_trace = '${delivery_trace}' , 
+            pay_date = '${pay_date}',
+            pay_status = '${pay_status}',
+            status = '${status}' ,
+            delivery_date = '${delivery_date}'
+            WHERE id = '${orderId}'`,
+            (err,result)=>{
             if(err) {
                 console.log(err);
             }else {
