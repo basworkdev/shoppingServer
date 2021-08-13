@@ -22,5 +22,6 @@
     "mysql": "^2.18.1",
     "nodemon": "^2.0.7"
   },
-  "type": "module"
+  "type": "module",
+  "start": "nodemon index"
 }
