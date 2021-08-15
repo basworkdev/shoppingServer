@@ -1,12 +1,12 @@
 steps:
   # build the container image
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/$PROJECT_ID/placeholder', '.']
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/placeholder@sha256:7d54127088b3ddde157225f0047d9ca0cfb56dcf9a923b6f77579236f9a54d2f', '.']
   # push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/$PROJECT_ID/placeholder']
+  args: ['push', 'gcr.io/$PROJECT_ID/placeholder@sha256:7d54127088b3ddde157225f0047d9ca0cfb56dcf9a923b6f77579236f9a54d2f']
   # Deploy container image to Cloud Run
 - name: 'gcr.io/cloud-builders/gcloud'
-  args: ['beta', 'run', 'deploy', 'placeholder', '--image', 'gcr.io/$PROJECT_ID/placeholder', '--region', 'asia-southeast1', '--quiet']
+  args: ['beta', 'run', 'deploy', 'placeholder', '--image', 'gcr.io/$PROJECT_ID/placeholder@sha256:7d54127088b3ddde157225f0047d9ca0cfb56dcf9a923b6f77579236f9a54d2f', '--region', 'asia-southeast1', '--quiet']
 images:
-- gcr.io/$PROJECT_ID/placeholder
+- gcr.io/$PROJECT_ID/placeholder@sha256:7d54127088b3ddde157225f0047d9ca0cfb56dcf9a923b6f77579236f9a54d2f
