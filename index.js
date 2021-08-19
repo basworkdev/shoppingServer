@@ -89,9 +89,9 @@ app.post('/updateOrderDetail' , orderRouter.updateOrderDetail);
 
 // Address
 // GET
-app.get('/getProvinces', addressRouter.getProvinces);
-app.get('/getAmphures/:province_id', addressRouter.getAmphures);
-app.get('/getDistricts/:amphure_id', addressRouter.getDistricts);
+// app.get('/getProvinces', addressRouter.getProvinces);
+// app.get('/getAmphures/:province_id', addressRouter.getAmphures);
+// app.get('/getDistricts/:amphure_id', addressRouter.getDistricts);
 app.get('/getOrderAll' , orderRouter.getOrderAll)
 
 
