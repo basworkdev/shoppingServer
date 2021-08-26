@@ -1,12 +1,12 @@
 steps:
   # build the container image
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/$PROJECT_ID/rodx-shop-be', '.']
+  args: ['build', '-t', 'asia.gcr.io/rodxshop/shoppingServer/rodx-shop-be', '.']
   # push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/$PROJECT_ID/rodx-shop-be']
+  args: ['push', 'asia.gcr.io/rodxshop/shoppingServer/rodx-shop-be']
   # Deploy container image to Cloud Run
 - name: 'gcr.io/cloud-builders/gcloud'
-  args: ['beta', 'run', 'deploy', 'rodx-shop-be', '--image', 'gcr.io/$PROJECT_ID/rodrodx-shop-be', '--region', 'asia-southeast1', '--quiet']
+  args: ['beta', 'run', 'deploy', 'rodx-shop-be', '--image', 'asia.gcr.io/rodxshop/shoppingServer/rodx-shop-be', '--region', 'asia-southeast1', '--quiet']
 images:
-- gcr.io/$PROJECT_ID/rodx-shop-be
+- asia.gcr.io/rodxshop/shoppingServer/rodx-shop-be
