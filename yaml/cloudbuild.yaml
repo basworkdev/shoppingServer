@@ -1,12 +1,12 @@
 steps:
   # build the container image
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'asia.gcr.io/rodxshop/shoppingServer/rodx-shop-be', '.']
+  args: ['build', '-t', 'gcr.io/cloudrun/placeholder@sha256', '.']
   # push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'asia.gcr.io/rodxshop/shoppingServer/rodx-shop-be']
+  args: ['push', 'gcr.io/cloudrun/placeholder@sha256']
   # Deploy container image to Cloud Run
 - name: 'gcr.io/cloud-builders/gcloud'
-  args: ['beta', 'run', 'deploy', 'rodx-shop-be', '--image', 'asia.gcr.io/rodxshop/shoppingServer/rodx-shop-be', '--region', 'asia-southeast1', '--quiet']
+  args: ['beta', 'run', 'deploy', 'rodx-shop-be', '--image', 'gcr.io/cloudrun/placeholder@sha256', '--region', 'asia-southeast1', '--quiet']
 images:
-- asia.gcr.io/rodxshop/shoppingServer/rodx-shop-be
+- gcr.io/cloudrun/placeholder@sha256
